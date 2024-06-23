@@ -34,13 +34,13 @@ const MainContent = () => {
         textDecoration: 'none',
         fontSize: '1rem'
     };
-
+    
     const posts = [
         {
             id: 1,
             title: 'Post 1',
             description: 'Description of Post 1',
-            imageUrl: 'https://placeimg.com/300/200/tech'
+            imageUrl: 'https://i.ibb.co/nbHh1Wv/mnist.png'
         },
         {
             id: 2,
