@@ -1,30 +1,30 @@
 .card {
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 50px;
     margin: 10px;
-    overflow: hidden; /* Ensure contents do not overflow */
+    overflow: hidden;
 }
 
 .card-content {
     display: flex;
-    /* flex-direction: row; */ /* Default is row, not needed */
 }
 
 .content-left {
-    flex: 0 0 auto; /* Fixed width for the left column */
+    flex: 0 0 auto;
     padding: 10px;
 }
 
 .image-thumbnail {
-    width: 150px; /* Size of the image thumbnail */
-    height: 150px; /* Size of the image thumbnail */
-    object-fit: cover; /* Ensure image covers the container */
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
     border-radius: 5px;
 }
 
 .content-right {
-    flex: 1; /* Allow the right column to grow */
+    flex: 1;
     padding: 10px;
+    position: relative; /* Ensure the container is positioned relative */
 }
 
 .button-group {
@@ -42,15 +42,15 @@
 }
 
 .btn-like {
+    position: absolute;
+    top: 10px; /* Adjust top position as needed */
+    right: 10px; /* Adjust right position as needed */
     display: flex;
     align-items: center;
     background: none;
     border: none;
     cursor: pointer;
     color: #333;
-    margin-top: 10px;
-}
-
-.btn-like:hover {
-    color: #f44336; /* Change color on hover as needed */
+    font-size: 1.5rem; /* Adjust font size to make the button bigger */
+    padding: 12px 20px; /* Adjust padding to increase button size */
 }

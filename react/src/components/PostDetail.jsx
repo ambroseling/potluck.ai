@@ -1,51 +1,25 @@
 // src/pages/PostDetail.js
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
+import BlogSection from './BlogSection';
+import InteractiveSection from './InteractiveSection';
+import '../styles/PostDetail.css';
 
-const PostDetail = () => {
+const PostDetail = ({ posts }) => {
     const { id } = useParams();
-    const [post, setPost] = useState(null);
-    const [input, setInput] = useState('');
-    const [result, setResult] = useState(null);
+    const post = posts.find(post => post.id === parseInt(id));
 
-    useEffect(() => {
-        // Fetch the post by id from an API or a local file
-        fetch(`/api/posts/${id}`)
-            .then(response => response.json())
-            .then(data => setPost(data));
-    }, [id]);
-
-    const handleInference = () => {
-        // Call your inference API with the input
-        fetch('/api/inference', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ input }),
-        })
-            .then(response => response.json())
-            .then(data => setResult(data));
-    };
-
-    if (!post) return <p>Loading...</p>;
+    if (!post) {
+        return <div>Post not found</div>;
+    }
 
     return (
         <div className="post-detail">
-            <div className="text-section">
-                <h1>{post.title}</h1>
-                <p>{post.content}</p>
+            <div className="section interactive-section">
+                <InteractiveSection />
             </div>
-            <div className="model-section">
-                <h2>Model Inference</h2>
-                <input
-                    type="text"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    placeholder="Enter input for inference"
-                />
-                <button onClick={handleInference}>Run Inference</button>
-                {result && <p>Result: {result}</p>}
+            <div className="section blog-section">
+                <BlogSection post={post} />
             </div>
         </div>
     );
