@@ -1,0 +1,59 @@
+/* src/components/Card.css */
+
+.card {
+    display: flex;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-image {
+    flex: 1;
+    min-width: 200px; /* Adjust based on your design */
+}
+
+.card-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.card-content {
+    flex: 2;
+    padding: 20px;
+    background-color: #f9f9f9; /* Adjust background color as needed */
+}
+
+.card-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.card-content p {
+    margin-bottom: 15px;
+}
+
+.button-group {
+    margin-bottom: 15px;
+}
+
+.btn {
+    padding: 8px 16px;
+    margin-right: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-like {
+    padding: 8px 16px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
