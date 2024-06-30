@@ -16,7 +16,7 @@ const PostDetail = ({ posts }) => {
     return (
         <div className="post-detail">
             <div className="section interactive-section">
-                <InteractiveSection />
+                <InteractiveSection type={post.type}/>
             </div>
             <div className="section blog-section">
                 <BlogSection post={post} />

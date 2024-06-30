@@ -10,6 +10,7 @@ const App = () => {
   const posts = [
     {
         id: 1,
+        type: 'mnist',
         title: 'MNIST Digit Classification Inference',
         description: 'One of the most famous image classification problems in deep learning. We let you explore how to provide your own hand drawn input and run inference on our model.',
         imageUrl: 'https://i.ibb.co/nbHh1Wv/mnist.png'
