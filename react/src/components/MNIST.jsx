@@ -1,5 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { Bar } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import '../styles/MNIST.css'; // Import the CSS file
+
+// Register the necessary components with Chart.js
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const MNIST = () => {
     const canvasRef = useRef(null);
@@ -7,6 +12,9 @@ const MNIST = () => {
     const [isDrawing, setIsDrawing] = useState(false);
     const [socket, setSocket] = useState(null);
     const [status, setStatus] = useState("");
+    const [probabilities, setProbabilities] = useState(Array(10).fill(0));
+    const [message, setMessage] = useState("");
+
     useEffect(() => {
         // WebSocket setup
         const ws = new WebSocket('ws://localhost:8000/ws');  // Replace with your WebSocket endpoint
@@ -18,6 +26,18 @@ const MNIST = () => {
         ws.onmessage = (event) => {
             setStatus(`Received response: ${event.data}`);
             // Handle received data as needed
+            const data = JSON.parse(event.data);
+            if (data.probabilities && Array.isArray(data.probabilities) && data.message) {
+                setProbabilities(data.probabilities);
+                setMessage(data.message);
+            } 
+            else if (data.messaage){
+                setMessage(data.message);
+            }
+            else {
+                console.error("Received invalid data format");
+                setStatus("Received invalid data format");
+            }
         };
 
         ws.onclose = () => {
@@ -54,6 +74,8 @@ const MNIST = () => {
        // Set contextRef to the canvas context
        contextRef.current = context;
     },[]);
+
+
     const startDrawing = ({ nativeEvent }) => {
         const { offsetX, offsetY } = nativeEvent;
         contextRef.current.beginPath();
@@ -92,12 +114,36 @@ const MNIST = () => {
         if (socket && socket.readyState === WebSocket.OPEN) {
             socket.send(JSON.stringify(payload));  // Convert payload to JSON string
             setStatus('Sending text and image...');
-        } else {
+        }
+        else {
             console.error('WebSocket connection not established.');
         }
     };
 
+    const data = {
+        labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+        datasets: [
+            {
+                label: 'Probability',
+                data: probabilities,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+            },
+        ],
+    };
+
+    const options = {
+        scales: {
+            y: {
+                beginAtZero: true,
+            },
+        },
+    };
+
     return (
+        <div className='row-container'>
+
         <div className="col-container">
             <canvas
                 ref={canvasRef}
@@ -110,8 +156,12 @@ const MNIST = () => {
             <div className="row-container">
             <button className="button" onClick={clearCanvas}>Clear</button>
             <button className="button" onClick={saveCanvas}>Save</button>
-
             </div>
+        </div>
+        <div className='col-container'>
+                <Bar data={data} options={options} />
+                <p>{message}</p>  {/* Display the received message */}
+        </div>
         </div>
     );
 };

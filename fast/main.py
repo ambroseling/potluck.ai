@@ -35,12 +35,10 @@ async def mnist(image: str, websocket: WebSocket):
     new_image = new_image.convert('RGB').convert('L')
     # run processing steps
     image = run_mnist_preprocessing(new_image)
-    await websocket.send_text("Processing your ugly handwriting...")
 
     # run model inference logic
     await run_mnist_inference(image,websocket)
-
-    await websocket.send_text("Inference Complete")
+    
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
