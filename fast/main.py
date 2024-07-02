@@ -6,7 +6,7 @@ from PIL import Image
 import io
 import torch
 import json
-from mnist.inference import run_mnist_inference, run_mnist_preprocessing
+from fast.mnist.mnist_api import run_mnist_inference, run_mnist_preprocessing
 import base64
 import numpy as np
 
@@ -39,6 +39,16 @@ async def mnist(image: str, websocket: WebSocket):
     # run model inference logic
     await run_mnist_inference(image,websocket)
     
+
+async def opensora(prompt:str, websocket: WebSocket):
+    # read the text
+    # send to sora
+    # get the video
+    # send it back through web socket
+    pass
+
+
+
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
