@@ -2,8 +2,8 @@
 
 ### To dos:
 
-- [x] Add Resnet (Ali)
-- [x] Debug why MNIST model working so funky (Ambrose/Ali)
+- [ ] Add Resnet (Ali)
+- [ ] Debug why MNIST model working so funky (Ambrose/Ali)
 - [ ] Finish adding Open-Sora-Plus model to inference api (Ambrose)
 - [ ] Add Llama3 to inference api
 - [ ] Add AnimateDiff
