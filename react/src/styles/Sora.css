@@ -1,0 +1,33 @@
+.prompt-bar {
+    display: flex;
+    align-items: center;
+    background-color: #f3f3f3;
+    border-radius: 30px;
+    padding: 10px 20px;
+    margin-top: 10px;
+    width: 590px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.prompt-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: none;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.send-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    margin-left: 10px;
+}
+
+.icon-send::before {
+    content: "\f1d8"; /* FontAwesome paper-plane icon */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+}

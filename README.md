@@ -2,7 +2,7 @@
 
 ### To dos:
 
-- [ ] Add Resnet (Ali)
+- [ ] Add ResNet (Ali)
 - [ ] Debug why MNIST model working so funky (Ambrose/Ali)
 - [ ] Finish adding Open-Sora-Plus model to inference api (Ambrose)
 - [ ] Add Llama3 to inference api

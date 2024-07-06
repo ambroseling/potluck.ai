@@ -104,10 +104,10 @@ const MNIST = () => {
     const saveCanvas = async () => {
         const canvas = canvasRef.current;
         const dataUrl = canvas.toDataURL('image/png');
-        const textData = "mnist"; // Replace with actual text data
+        const config = "mnist"; // Replace with actual text data
         console.log(dataUrl);
         const payload = {
-            text: textData,
+            config: config,
             image: dataUrl,
         };
     

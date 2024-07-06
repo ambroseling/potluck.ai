@@ -6,7 +6,10 @@ from PIL import Image
 import io
 import torch
 import json
+import sys
+sys.path.append("/home/tiny_ling/projects/2bros2gpus")
 from fast.mnist.mnist_api import run_mnist_inference, run_mnist_preprocessing
+from fast.opensora.opensora_api import run_sora_inference
 import base64
 import numpy as np
 
@@ -40,12 +43,13 @@ async def mnist(image: str, websocket: WebSocket):
     await run_mnist_inference(image,websocket)
     
 
-async def opensora(prompt:str, websocket: WebSocket):
+async def opensora(prompt:str, sampling_steps:int, sampler:str ,websocket:WebSocket):
     # read the text
     # send to sora
     # get the video
     # send it back through web socket
-    pass
+    await run_sora_inference(text_prompt=prompt, sampling_steps=sampling_steps, sampler=sampler ,websocket=websocket)
+    
 
 
 
@@ -57,11 +61,20 @@ async def websocket_endpoint(websocket: WebSocket):
         while True:
             data = await websocket.receive_text()
             payload = json.loads(data)
-            
-            text_data = payload.get("text")
-            image_b64 = payload.get("image")
-            if text_data == "mnist":
+            print(payload)
+            config = payload.get("config")
+            if config == "mnist":
+                if 'image' in payload:
+                    image_b64 = payload.get("image")
                 await mnist(websocket=websocket,image = image_b64)
+            elif config == "sora":
+                if "prompt" in payload:
+                    prompt = payload.get("prompt")
+                if "sampling_steps" in payload:
+                    sampling_steps = payload.get("sampling_steps")
+                if "sampler" in payload:
+                    sampler = payload.get("sampler")
+                await opensora(prompt = prompt, sampling_steps = sampling_steps, sampler=sampler,websocket=websocket)
     except Exception as e:
         print(f"WebSocket error: {e}")
     finally:

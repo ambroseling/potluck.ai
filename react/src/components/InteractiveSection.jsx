@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/InteractiveSection.css';
 import MNIST from './MNIST';
+import Sora from './Sora';
 
 
 const InteractiveSection = ({type,title}) => {
@@ -8,7 +9,7 @@ const InteractiveSection = ({type,title}) => {
     <div className="interactive-section">
       <h2>Model Playground</h2>
       {type === 'mnist' && <MNIST/>}
-      {type === 'resnset'}
+      {type === 'sora' && <Sora/>}
     </div>
   );
 };

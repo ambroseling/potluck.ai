@@ -17,6 +17,7 @@ const App = () => {
     },
     {
         id: 2,
+        type: "sora",
         title: 'Open-SORA: Video Generation Inference',
         description: 'Explore generative modelling with SORA, specifically video generation with providing a prompt. Understand how it works under the hood and run the model yourself.',
         imageUrl: 'https://i.ibb.co/b13fsBs/Gemini-Generated-Image-f66fr5f66fr5f66f.jpg'
