@@ -43,7 +43,7 @@ def run_mnist_preprocessing(image:Image):
     return tensor_image
 
 async def run_mnist_inference(image:torch.Tensor,websocket:WebSocket):
-    state_dict = torch.load('mnist/mnist.pt')
+    state_dict = torch.load('mnist/mnist_mlp.pt')
     model = MLP()
     model.load_state_dict(state_dict=state_dict)
     result = {"message": "Loading the model.."}

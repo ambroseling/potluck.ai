@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import '../styles/Sora.css';  // Make sure to import the CSS file
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import LoadingComponent from './LoadingComponent';
 import { faPaperclip, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 const Sora = () => {
     const samplers = ["PNDM","DDIM","DDPM"]
@@ -12,6 +13,7 @@ const Sora = () => {
     const [socket, setSocket] = useState(null);
     const [status, setStatus] = useState("");
     const [message, setMessage] = useState("");
+    const [progress, setProgress] = useState(0);
 
     // Effect to update video source when videoSrc changes
     useEffect(() => {
@@ -46,6 +48,10 @@ const Sora = () => {
                 const blob = new Blob([byteArray], { type: 'video/mp4' });
                 console.log(URL.createObjectURL(blob));
                 setVideoSrc(URL.createObjectURL(blob));
+            }
+            else if (data.message){
+            setMessage(data.message);
+            setProgress(data.progress);
             }
             else {
                 console.error("Received invalid data format");
@@ -93,8 +99,13 @@ const Sora = () => {
     return (
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <video ref={videoRef} width="512" height="512" controls>
-                </video>
+                
+            {videoSrc ? (
+                    <video ref={videoRef} width="512" height="512" style={{ borderRadius: '15px' }} controls />
+                ) : (
+                    <LoadingComponent message = {message} progress = {progress}/>
+                )}
+                
                 <div className="prompt-bar">
                     <i className="icon-attachment"></i>
                     <input 

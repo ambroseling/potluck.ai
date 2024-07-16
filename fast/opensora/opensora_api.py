@@ -114,16 +114,18 @@ async def run_sora_inference(text_prompt:str, sampling_steps:int, sampler:str ,w
     
     for idx, prompt in enumerate(text_prompt):    
         print('Processing the ({}) prompt'.format(prompt))
-        videos = videogen_pipeline(prompt,
+        videos = await videogen_pipeline(prompt,
                                    num_frames=num_frames,
-                                   height=height,
                                    width=width,
+                                   height=height,
                                    num_inference_steps=num_sampling_steps,
                                    guidance_scale=guidance_scale,
                                    enable_temporal_attentions=not force_images,
                                    num_images_per_prompt=1,
                                    mask_feature=True,
-                                   ).video
+                                   websocket = websocket
+                                   )
+        videos = videos.video
         print(videos.shape)
         try:
             if force_images:
@@ -142,7 +144,7 @@ async def run_sora_inference(text_prompt:str, sampling_steps:int, sampler:str ,w
         video_grids.append(videos)
     video_grids = torch.cat(video_grids, dim=0)
     video_path = os.path.join(save_img_path, f'{idx}.{ext}')
-    print("Inference complete...")
+
     if os.path.exists(video_path):
         with open(video_path, "rb") as video_file:
             video_data = video_file.read()
