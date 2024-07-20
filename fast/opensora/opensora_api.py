@@ -26,7 +26,7 @@ from pipeline_videogen import VideoGenPipeline
 import imageio
 from fastapi import FastAPI, WebSocket, File, UploadFile
 
-
+# Code is adapted from https://github.com/PKU-YuanGroup/Open-Sora-Plan in pipeline_videogen.py
 async def run_sora_inference(text_prompt:str, sampling_steps:int, sampler:str ,websocket:WebSocket):
     model_path = "/home/tiny_ling/projects/2bros2gpus/fast/opensora/Open-Sora-Plan-v1.1.0"
     version = "65x512x512"
