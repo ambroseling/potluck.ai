@@ -1,4 +1,4 @@
-# 2bros2gpus
+# potluck.ai
 
 ### To dos:
 
