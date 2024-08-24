@@ -27,7 +27,7 @@ import imageio
 from fastapi import FastAPI, WebSocket, File, UploadFile
 
 
-async def run_sora_inference(text_prompt:str, sampling_steps:int, sampler:str ,websocket:WebSocket):
+def run_sora_inference(text_prompt:str, sampling_steps:int, sampler:str ):
     model_path = "/home/tiny_ling/projects/2bros2gpus/fast/opensora/Open-Sora-Plan-v1.1.0"
     version = "65x512x512"
     num_frames = 65
@@ -114,7 +114,7 @@ async def run_sora_inference(text_prompt:str, sampling_steps:int, sampler:str ,w
     
     for idx, prompt in enumerate(text_prompt):    
         print('Processing the ({}) prompt'.format(prompt))
-        videos = await videogen_pipeline(prompt,
+        videos = videogen_pipeline(prompt,
                                    num_frames=num_frames,
                                    width=width,
                                    height=height,
@@ -123,7 +123,6 @@ async def run_sora_inference(text_prompt:str, sampling_steps:int, sampler:str ,w
                                    enable_temporal_attentions=not force_images,
                                    num_images_per_prompt=1,
                                    mask_feature=True,
-                                   websocket = websocket
                                    )
         videos = videos.video
         print(videos.shape)
@@ -150,10 +149,9 @@ async def run_sora_inference(text_prompt:str, sampling_steps:int, sampler:str ,w
             video_data = video_file.read()
             encoded_video = base64.b64encode(video_data).decode('utf-8')
             print("Encoding the video...")
-
-            await websocket.send_text(json.dumps({"video": encoded_video}))
+        return encoded_video
     else:
-        await websocket.send_text(json.dumps({"error": "Video file not found"}))
+        return -1
 
     # # torchvision.io.write_video(save_img_path + '_%04d' % run_time + '-.mp4', video_grids, fps=6)
     # if force_images:

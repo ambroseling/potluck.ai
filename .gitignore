@@ -1,3 +1,7 @@
+google_credentials.json
 fast/opensora/Open-Sora-Plan-v1.1.0
 fast/opensora/Open-Sora-Plan/scripts/text_condition/cache_dir
 fast/opensora/cache_dir
+fast/
+node_modules/
+streamlit/.venv/
