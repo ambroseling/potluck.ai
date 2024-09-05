@@ -58,9 +58,9 @@ def run_mnist_inference(image):
 
 
 # Streamlit UI
-st.title("MNIST Digits Classification")
-st.subheader("What is MNIST")
-st.write("MNSIT is the famous digit classification task in deep learning. We try to input an image to a neural network and predict what digit it belongs to.")
+st.title("beautiful mnist")
+st.subheader("what is mnist")
+st.write("mnist is the famous digit classification task in deep learning. We try to input an image to a neural network and predict what digit it belongs to.")
 col1, col2, col3 = st.columns(3)
 col1.metric("Memory Usage", "10 MB", "1.2 °F")
 col2.metric("Number of Params", "200", "-8%")
@@ -99,7 +99,8 @@ with col2:
             st.success("Done!")
 
 st.subheader("How does it all work?")
-st.write()
-# Do something interesting with the image data and paths
-# if canvas_result.image_data is not None:
-#     st.image(canvas_result.image_data)
+st.markdown('''
+
+
+
+''')
